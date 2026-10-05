@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="uk">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Тестування Coffee API</title>
+  </head>
+  <body>
+    <h1>Тестування API кав'ярні</h1>
+
+    <button id="loadMenuButton">Завантажити меню</button>
+    <ul id="menuList"></ul>
+
+    <h2>Оформити замовлення</h2>
+    <form id="orderForm">
+      <label>Ім'я: <input id="customerName" required /></label>
+      <label
+        >Час самовивозу: <input id="pickupTime" type="datetime-local" required
+      /></label>
+      <button type="submit">Створити тестове замовлення</button>
+    </form>
+
+    <h2>Відповідь сервера</h2>
+    <pre id="result"></pre>
+
+    <script src="main.js"></script>
+  </body>
+</html>
