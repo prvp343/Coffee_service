@@ -1,5 +1,6 @@
-﻿const express = require("express");
+const express = require("express");
 const Product = require("../models/Product");
+const { adminAuth } = require("../auth/adminAuth");
 
 const router = express.Router();
 
@@ -12,7 +13,7 @@ router.get("/", async (request, response) => {
   }
 });
 
-router.post("/", async (request, response) => {
+router.post("/", adminAuth, async (request, response) => {
   try {
     const product = await Product.create(request.body);
     response.status(201).json(product);
@@ -21,6 +22,32 @@ router.post("/", async (request, response) => {
       message: "Не вдалося додати товар",
       error: error.message,
     });
+  }
+});
+
+router.put("/:id", adminAuth, async (request, response) => {
+  try {
+    const product = await Product.findByIdAndUpdate(request.params.id, request.body, {
+      returnDocument: "after",
+      runValidators: true,
+    });
+
+    return product
+      ? response.json(product)
+      : response.status(404).json({ message: "Товар не знайдено" });
+  } catch (error) {
+    return response.status(400).json({ message: "Не вдалося змінити товар" });
+  }
+});
+
+router.delete("/:id", adminAuth, async (request, response) => {
+  try {
+    const product = await Product.findByIdAndDelete(request.params.id);
+    return product
+      ? response.json({ message: "Товар видалено" })
+      : response.status(404).json({ message: "Товар не знайдено" });
+  } catch (error) {
+    return response.status(400).json({ message: "Не вдалося видалити товар" });
   }
 });
 
