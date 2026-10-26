@@ -1,0 +1,9 @@
+{
+  "name": "coffee-service",
+  "private": true,
+  "scripts": {
+    "start": "npm --prefix frontend run build && npm --prefix backend run start",
+    "dev:frontend": "npm --prefix frontend run dev",
+    "dev:backend": "npm --prefix backend run dev"
+  }
+}
